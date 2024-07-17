@@ -1,7 +1,8 @@
 import "./App.css";
+import Main from "./components/app/Main";
 
-function App() {
-  return <div>Assignment</div>;
-}
+const App = () => {
+  return <Main />;
+};
 
 export default App;
