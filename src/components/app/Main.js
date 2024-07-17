@@ -28,10 +28,12 @@ const Main = () => {
   }, {});
 
   return (
-    <>
+    <main>
       <Header />
-      <Groups groups={groups} />
-    </>
+      <div style={{ padding: "0 55px"}}>
+        <Groups groups={groups} />
+      </div>
+    </main>
   );
 };
 

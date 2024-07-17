@@ -1,0 +1,19 @@
+.divOpener {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  width: fit-content;
+  padding: 0 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.divOpener p {
+  margin: 0 5px;
+}
+
+.divOpener span {
+  margin-top: 6px;
+}
