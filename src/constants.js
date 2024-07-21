@@ -1,1 +1,6 @@
-export const API_URL = "https://api.quicksell.co/v1/internal/frontend-assignment";
+export const API_URL =
+  "https://api.quicksell.co/v1/internal/frontend-assignment";
+
+export const ASC = "ASC";
+
+export const DESC = "DESC";

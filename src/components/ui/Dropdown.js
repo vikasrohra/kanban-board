@@ -2,10 +2,10 @@ import React from "react";
 
 import styles from "./Dropdown.module.css";
 
-const Dropdown = ({children, toggleList}) => {
+const Dropdown = ({children, toggleList, withShadow = false}) => {
   return (
     <>
-      <div className={styles.divOpener} onClick={toggleList}>
+      <div className={`${styles.divOpener} ${withShadow ? styles.shadow : "" }`} onClick={toggleList}>
         <span>
           <svg
             width="16"

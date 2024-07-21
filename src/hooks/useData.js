@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_URL } from "../constants";
+import { API_URL } from "../Constants";
 
 const useData = () => {
   const [data, setData] = useState(null);
@@ -8,7 +8,7 @@ const useData = () => {
     getData();
 
     return () => setData(null);
-  }, []);
+  }, [data]);
 
   const getData = async () => {
     const apiData = await fetch(API_URL);
@@ -16,7 +16,7 @@ const useData = () => {
     setData(jsonConvertedData);
   };
 
-  return data;
+  return [data, setData];
 };
 
 export default useData;

@@ -1,3 +1,28 @@
 .group {
-  width: 30%;
+  width: 229px;
+  padding: 10px 20px;
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupHeaderLeft {
+  display: flex;
+  align-items: center;
+}
+
+.groupHeaderRight {
+  display: flex;
+  align-items: center;
+}
+
+.groupHeaderLeft span {
+  color: #bbb;
+}
+
+.spacingL {
+  margin-left: 10px;
 }

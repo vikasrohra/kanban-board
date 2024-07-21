@@ -1,38 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import useData from "../../hooks/useData";
 import Header from "./Header";
 import Groups from "./Groups";
+import { getGroupingFactor, getOrderingFactor } from "../../Common";
+import { API_URL, ASC } from "../../Constants";
 
-const SORT_PARAM_PRIORITY = {
-  name: "priority",
-  direction: "desc",
-};
-
-const SORT_PARAM_TITLE = {
-  name: "title",
-  direction: "asc",
-};
+import styles from "./Main.module.css";
 
 const Main = () => {
-  const data = useData();
+  const [groupingFactor, setGroupingFactor] = useState("1");
+  const [orderingFactor, setOrderingFactor] = useState("1");
+  const [data, setData] = useState(null);
+  const [tickets, setTickets] = useState(null);
+  const [users, setUsers] = useState([]);
 
-  if (!data) return null;
+  useEffect(() => {
+    getData();
 
-  const groups = data.tickets.reduce((groups, ticket) => {
-    const group = groups[ticket["status"]] || [];
-    group.push(ticket);
-    group.sort((a, b) => b["priority"] - a["priority"]);
-    groups[ticket["status"]] = group;
-    return groups;
-  }, {});
+    return () => {
+      setGroupingFactor("1");
+      setOrderingFactor("1");
+      setData(null);
+      setTickets(null);
+      setUsers([]);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      filterData(data);
+    }
+  }, [data, groupingFactor, orderingFactor]);
+
+  const getData = async () => {
+    const apiData = await fetch(API_URL);
+    const jsonConvertedData = await apiData.json();
+    setData(jsonConvertedData);
+    setUsers(jsonConvertedData.users);
+    filterData(jsonConvertedData);
+  };
+
+  const changeGroupingFactor = (factor) => {
+    setGroupingFactor(factor);
+  };
+
+  const changeOrderingFactor = (factor) => {
+    setOrderingFactor(factor);
+  };
+
+  const filterData = (d) => {
+    const gFactor = getGroupingFactor(groupingFactor);
+    const oFactor = getOrderingFactor(orderingFactor);
+
+    const groupedTickets = Object.groupBy(d.tickets, (ticket) => {
+      return ticket[gFactor];
+    });
+
+    for (const key in groupedTickets) {
+      if (oFactor.order === ASC) {
+        groupedTickets[key].sort((a, b) => a[oFactor.key] - b[oFactor.key]);
+      } else {
+        groupedTickets[key].sort((a, b) => b[oFactor.key] - a[oFactor.key]);
+      }
+    }
+
+    setTickets(groupedTickets);
+  };
+
+  console.log("group, order", groupingFactor, orderingFactor);
+  console.log("tickets", tickets);
+
+  if (!tickets) return null;
 
   return (
-    <main>
-      <Header />
-      <div style={{ padding: "0 55px"}}>
-        <Groups groups={groups} />
-      </div>
+    <main className={styles.main}>
+      <Header
+        changeGroupingFactor={changeGroupingFactor}
+        changeOrderingFactor={changeOrderingFactor}
+        groupingFactor={groupingFactor}
+        orderingFactor={orderingFactor}
+      />
+      <Groups groups={tickets} groupingFactor={groupingFactor} />
     </main>
   );
 };
