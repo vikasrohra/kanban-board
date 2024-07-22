@@ -10,14 +10,38 @@ const Groups = ({ groups, groupingFactor }) => {
     <div className={styles.groups}>
       {Object.keys(groups).map((g, i) => {
         return (
-          <Group
-            group={groups[g]}
-            key={`Group - ${g}`}
-            name={groupingFactor === "3" ? getPriorityName(g) : g}
-            status={g}
-            priority={g}
-            count={groups[g].length}
-          />
+          <>
+          {/* STATUS */}
+            {groupingFactor === "1" && (
+              <Group
+                group={groups[g]}
+                key={`Group - ${g}`}
+                name={g}
+                status={g}
+                count={groups[g].length}
+              />
+            )}
+            {/* USER */}
+            {groupingFactor === "2" && (
+              <Group
+                group={groups[g]}
+                key={`Group - ${g}`}
+                name={g}
+                username={groups[g][0].username}
+                count={groups[g].length}
+              />
+            )}
+            {/* PRIORITY */}
+            {groupingFactor === "3" && (
+              <Group
+                group={groups[g]}
+                key={`Group - ${g}`}
+                name={getPriorityName(g)}
+                priority={g}
+                count={groups[g].length}
+              />
+            )}
+          </>
         );
       })}
     </div>

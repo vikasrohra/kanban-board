@@ -57,6 +57,10 @@ const Main = () => {
     });
 
     for (const key in groupedTickets) {
+      groupedTickets[key].map((item) => {
+        item.username = d.users.find((u) => u.id === item.userId).name;
+      });
+
       if (oFactor.order === ASC) {
         groupedTickets[key].sort((a, b) => a[oFactor.key] - b[oFactor.key]);
       } else {
