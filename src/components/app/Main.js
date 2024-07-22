@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Groups from "./Groups";
 import { getGroupingFactor, getOrderingFactor } from "../../Common";
-import { API_URL, ASC } from "../../Constants";
+import { API_URL, ASC } from "../../constants";
 
 import styles from "./Main.module.css";
 

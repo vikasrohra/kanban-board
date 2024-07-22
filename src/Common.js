@@ -1,4 +1,4 @@
-import { ASC, DESC } from "./Constants";
+import { ASC, DESC } from "./constants";
 
 export const getGroupingFactor = (factorId) => {
   switch (factorId) {

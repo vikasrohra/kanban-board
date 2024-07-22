@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_URL } from "../Constants";
+import { API_URL } from "../constants";
 
 const useData = () => {
   const [data, setData] = useState(null);
